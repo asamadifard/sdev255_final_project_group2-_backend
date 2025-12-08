@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Course Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<script>
+  // Check login
+  if (!localStorage.getItem("loggedInTeacher")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+
+
+<body>
+  <!-- Navigation Bar -->
+ <nav class="navbar">
+  <span class="brand">Teacher Page</span>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="add-course.html">Add a New Course</a>
+    <a href="courses.html">View Added Courses</a>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+
+<script>
+  function logout() {
+    localStorage.removeItem("loggedInTeacher");
+    window.location.href = "login.html";
+  }
+</script>
+
+
+
+  <main>
+    <form id="courseForm">
+      <input type="text" id="courseNumber" placeholder="Course Number (CS101)" required>
+      <input type="text" id="courseName" placeholder="Course Name" required>
+      <input type="text" id="subjectArea" placeholder="Subject Area" required>
+      <input type="number" id="credits" placeholder="Credits" min="1" max="10" required>
+      <textarea id="description" placeholder="Course Description" required></textarea>
+      <button type="submit">Add Course</button>
+    </form>
+  </main>
+
+  <script>
+    document.getElementById("courseForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const course = {
+        courseNumber: document.getElementById("courseNumber").value,
+        courseName: document.getElementById("courseName").value,
+        subjectArea: document.getElementById("subjectArea").value,
+        credits: document.getElementById("credits").value,
+        description: document.getElementById("description").value
+      };
+
+      // Get existing courses from localStorage
+      let courses = JSON.parse(localStorage.getItem("courses")) || [];
+      courses.push(course);
+      localStorage.setItem("courses", JSON.stringify(courses));
+
+      // Redirect to courses page
+      window.location.href = "courses.html";
+    });
+  </script>
+</body>
+</html>
