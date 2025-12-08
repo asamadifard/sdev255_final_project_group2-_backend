@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+  <span class="brand">Teacher Page</span>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="add-course.html">Add a New Course</a>
+    <a href="courses.html">View Added Courses</a>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+
+  <main>
+    <h2>Teacher Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginMessage"></p>
+  </main>
+
+  <script>
+    // For demo: one hardcoded teacher account
+    const teacherAccount = { username: "teacher1", password: "pass123" };
+
+    document.getElementById("loginForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (user === teacherAccount.username && pass === teacherAccount.password) {
+        localStorage.setItem("loggedInTeacher", user);
+        window.location.href = "add-course.html"; // redirect after login
+      } else {
+        document.getElementById("loginMessage").textContent = "Invalid credentials!";
+      }
+    });
+  </script>
+
+
+
+</body>
+</html>
