@@ -123,7 +123,6 @@ button {
   background: #b52a37;
 }
 
-
 .home-container {
   display: flex;
   flex-direction: column;
@@ -131,6 +130,15 @@ button {
   justify-content: center;   /* center vertically */
   height: 80vh;              /* take up most of the screen */
   text-align: center;
+}
+
+.forms-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  height: 40vh;
+  margin-left: 20vw;
+  margin-right: 20vw;
 }
 
 .intro-text {

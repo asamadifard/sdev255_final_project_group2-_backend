@@ -4,32 +4,15 @@
   <meta charset="UTF-8">
   <title>Student College Page</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="scripts/uni_script.js"></script>
 </head>
 <body>
   <!-- Navigation Bar -->
   <nav class="navbar">
   <span class="brand">Student Page</span>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="student.html">Available Courses</a>
-    <a href="student-schedule.html">My Schedule</a>
-    <button class="logout-btn" onclick="logout()">Logout</button>
-  </div>
 </nav>
-
-
-<button class="logout-btn" onclick="logout()">Logout</button>
-
-<!--Adding a logout option-->
-<script>
-  function logout() {
-    localStorage.removeItem("loggedInStudent");
-    window.location.href = "student-login.html";
-  }
-</script>
-
-
-  </nav>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</nav>
 
   <main>
     <!-- Available Courses -->
@@ -44,12 +27,6 @@
       <div id="scheduleList"></div>
     </section>
   </main>
-<!--Protect student portal-->
-  <script>
-  if (!localStorage.getItem("loggedInStudent")) {
-    window.location.href = "student-login.html";
-  }
-</script>
 
 
   <script>
