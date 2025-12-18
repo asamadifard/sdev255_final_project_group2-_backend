@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Course Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts/uni_script.js"></script>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+ <nav class="navbar">
+  <span class="brand">Teacher Page</span>
+</nav>
+
+  <main>
+    <form id="courseForm">
+      <input type="text" id="courseNumber" placeholder="Course Number (CS101)" required>
+      <input type="text" id="courseName" placeholder="Course Name" required>
+      <input type="text" id="subjectArea" placeholder="Subject Area" required>
+      <input type="number" id="credits" placeholder="Credits" min="1" max="10" required>
+      <textarea id="description" placeholder="Course Description" required></textarea>
+      <button type="submit">Add Course</button>
+    </form>
+  </main>
+
+  <script>
+    document.getElementById("courseForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const course = {
+        courseNumber: document.getElementById("courseNumber").value,
+        courseName: document.getElementById("courseName").value,
+        subjectArea: document.getElementById("subjectArea").value,
+        credits: document.getElementById("credits").value,
+        description: document.getElementById("description").value
+      };
+
+      // Get existing courses from localStorage
+      let courses = JSON.parse(localStorage.getItem("courses")) || [];
+      courses.push(course);
+      localStorage.setItem("courses", JSON.stringify(courses));
+
+      // Redirect to courses page
+      window.location.href = "courses.html";
+    });
+  </script>
+</body>
+</html>

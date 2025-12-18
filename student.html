@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student College Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts/uni_script.js"></script>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+  <span class="brand">Student Page</span>
+</nav>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</nav>
+
+  <main>
+    <!-- Available Courses -->
+    <section id="courses">
+      <h2>Available Courses</h2>
+      <div id="courseList"></div>
+    </section>
+
+    <!-- Student Schedule -->
+    <section id="schedule">
+      <h2>My Schedule</h2>
+      <div id="scheduleList"></div>
+    </section>
+  </main>
+
+
+  <script>
+    // Check login (optional: if you want student login too)
+    // if (!localStorage.getItem("loggedInStudent")) {
+    //   window.location.href = "student-login.html";
+    // }
+
+    // Load courses created by teachers
+    let courses = JSON.parse(localStorage.getItem("courses")) || [];
+    let schedule = JSON.parse(localStorage.getItem("studentSchedule")) || [];
+
+    function renderCourses() {
+      const list = document.getElementById("courseList");
+      list.innerHTML = "";
+      courses.forEach((c, index) => {
+        const div = document.createElement("div");
+        div.className = "course-card";
+        div.innerHTML = `
+          <h3>${c.courseNumber} — ${c.courseName}</h3>
+          <p>${c.description}</p>
+          <p><strong>${c.subjectArea}</strong> • ${c.credits} credits</p>
+          <button class="enroll" onclick="enrollCourse(${index})">Add to Schedule</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function renderSchedule() {
+      const list = document.getElementById("scheduleList");
+      list.innerHTML = "";
+      schedule.forEach((c, index) => {
+        const div = document.createElement("div");
+        div.className = "schedule-card";
+        div.innerHTML = `
+          <h3>${c.courseNumber} — ${c.courseName}</h3>
+          <p>${c.description}</p>
+          <button class="drop" onclick="dropCourse(${index})">Remove</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function enrollCourse(index) {
+      const course = courses[index];
+      // Prevent duplicates
+      if (!schedule.find(c => c.courseNumber === course.courseNumber)) {
+        schedule.push(course);
+        localStorage.setItem("studentSchedule", JSON.stringify(schedule));
+        renderSchedule();
+        alert(`Added ${course.courseName} to your schedule`);
+      } else {
+        alert("You already added this course!");
+      }
+    }
+
+    function dropCourse(index) {
+      const course = schedule[index];
+      schedule.splice(index, 1);
+      localStorage.setItem("studentSchedule", JSON.stringify(schedule));
+      renderSchedule();
+      alert(`Removed ${course.courseName} from your schedule`);
+    }
+
+    function logout() {
+      // If you want student login, clear it here
+      // localStorage.removeItem("loggedInStudent");
+      window.location.href = "login.html"; // or student-login.html
+    }
+
+    // Initial render
+    renderCourses();
+    renderSchedule();
+  </script>
+</body>
+</html>

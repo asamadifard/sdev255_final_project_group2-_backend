@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts/uni_script.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+  <span class="brand">Student Page</span>
+</nav>
+
+
+  <main>
+    <h2>Student Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginMessage"></p>
+  </main>
+
+  <script>
+  document.getElementById("loginForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+    const match = students.find(s => s.username === user && s.password === pass);
+
+    if (match) {
+      localStorage.setItem("loggedInStudent", user);
+      window.location.href = "student.html"; // redirect after login
+    } else {
+      document.getElementById("loginMessage").textContent = "Invalid credentials!";
+    }
+  });
+</script>
+
+</body>
+</html>

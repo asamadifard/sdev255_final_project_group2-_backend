@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>College Course Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts/login.js"></script>
+  <script src="scripts/uni_script.js"></script>
+</head>
+<body>
+  <!-- Navigation Bar -->
+ <nav class="navbar">
+  <span class="brand">College Course Manager</span>
+</nav>
+    <!-- Page-specific content goes here -->
+
+<main>
+  <h2 align="center">Login Page</h2>
+  <p class="intro-text" align="center">Log in to use this site.</p>
+  <section class="forms-container">
+    <form>
+      <div class="left-col">
+        <label for="username">Username:</label>
+        <input type="text" id="username">
+        <label for="password">Password:</label>
+        <input type="text" id="password">
+      </div>
+      <div class="right-col"> <!--we should have this in a right column. haven't done CSS in a long time, don't remember how-->
+        <label for="instructor">Are you an Instructor?</label>
+        <input type="checkbox" id="typeToggle">
+      </div>
+      <button id="submit" type="button">Log In</button>
+    </form>
+    <div id="error"></div>
+  </section>
+</main>
+
+
+</body>
+</html>

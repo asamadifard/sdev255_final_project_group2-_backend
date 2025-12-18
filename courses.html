@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>College Course Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts/uni_script.js"></script>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+ <nav class="navbar">
+  <span class="brand">Teacher Page</span>
+</nav>
+
+  <main>
+    <div id="courseList"></div>
+  </main>
+
+  <script>
+    let courses = JSON.parse(localStorage.getItem("courses")) || [];
+
+    function renderCourses() {
+      const list = document.getElementById("courseList");
+      list.innerHTML = "";
+      courses.forEach((c, index) => {
+        const div = document.createElement("div");
+        div.className = "course-card";
+        div.innerHTML = `
+          <h3>${c.courseNumber} — ${c.courseName}</h3>
+          <p>${c.description}</p>
+          <p><strong>${c.subjectArea}</strong> • ${c.credits} credits</p>
+          <button onclick="editCourse(${index})">Edit</button>
+          <button onclick="deleteCourse(${index})">Delete</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function editCourse(index) {
+      const course = courses[index];
+      // Prompt for new values
+      const newName = prompt("Edit course name:", course.courseName);
+      const newDesc = prompt("Edit description:", course.description);
+      const newCredits = prompt("Edit credits:", course.credits);
+
+      if (newName && newDesc && newCredits) {
+        courses[index].courseName = newName;
+        courses[index].description = newDesc;
+        courses[index].credits = newCredits;
+        localStorage.setItem("courses", JSON.stringify(courses));
+        renderCourses();
+      }
+    }
+
+    function deleteCourse(index) {
+      courses.splice(index, 1);
+      localStorage.setItem("courses", JSON.stringify(courses));
+      renderCourses();
+    }
+
+    renderCourses();
+  </script>
+</body>
+</html>
